@@ -115,6 +115,7 @@ let
         --tmpdir=$TMPDIR \
         --override-os ${os} \
         --override-arch ${arch} \
+        --debug \
         copy \
         --src-tls-verify=${l.boolToString tlsVerify} \
         "$sourceURL" \
