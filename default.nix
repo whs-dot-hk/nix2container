@@ -97,7 +97,6 @@ let
     , tlsVerify ? true
     , name ? fixName "docker-image-${imageName}"
     }: let
-      authFile = "/etc/skopeo/auth.json";
       dir = pkgs.runCommand name
       {
         inherit imageDigest;
@@ -118,14 +117,7 @@ let
         --override-arch ${arch} \
         copy \
         --src-tls-verify=${l.boolToString tlsVerify} \
-        $(
-          if test -f "${authFile}"
-          then
-            echo "--authfile=${authFile} $sourceURL"
-          else
-            echo "$sourceURL"
-          fi
-        ) \
+        "$sourceURL" \
         "dir://$out" \
         | cat  # pipe through cat to force-disable progress bar
       '';
